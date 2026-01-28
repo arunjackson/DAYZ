@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAY Z Studios - Wellness & Creativity</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --teal: #2FB7C6;
+            --teal-dark: #21929E;
+            --light-orange: #F6B26B;
+            --coral: #E06666;
+            --black: #000000;
+            --dark-gray: #2B2B2B;
+            --white: #FFFFFF;
+            --light-gray: #F8F9FA;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--teal);
+            color: var(--dark-gray);
+            overflow-x: hidden;
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Background art images */
+        .bg-art {
+            position: fixed;
+            opacity: 0.08;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-art-1 {
+            top: 10%;
+            left: 5%;
+            width: 120px;
+            height: 120px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50,10 C70,10 85,25 85,45 C85,65 70,80 50,80 C30,80 15,65 15,45 C15,25 30,10 50,10 Z" fill="%23000000" stroke="%23000000" stroke-width="2"/><circle cx="50" cy="30" r="5" fill="%23FFFFFF"/><circle cx="40" cy="50" r="5" fill="%23FFFFFF"/><circle cx="60" cy="50" r="5" fill="%23FFFFFF"/><path d="M35,65 C40,70 60,70 65,65" stroke="%23FFFFFF" stroke-width="3" fill="none"/></svg>') no-repeat center;
+            background-size: contain;
+        }
+
+        .bg-art-2 {
+            top: 20%;
+            right: 8%;
+            width: 150px;
+            height: 150px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30,20 L50,5 L70,20 L65,45 L35,45 Z" fill="%23000000"/><circle cx="50" cy="30" r="8" fill="%23FFFFFF"/><path d="M30,55 L35,75 L45,85 L55,85 L65,75 L70,55" stroke="%23000000" stroke-width="3" fill="none"/><path d="M40,55 L40,65 M60,55 L60,65" stroke="%23000000" stroke-width="2"/></svg>') no-repeat center;
+            background-size: contain;
+        }
+
+        .bg-art-3 {
+            bottom: 15%;
+            left: 8%;
+            width: 130px;
+            height: 130px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="40" r="25" fill="%23000000"/><path d="M25,40 Q50,80 75,40" stroke="%23FFFFFF" stroke-width="4" fill="none"/><path d="M35,65 L40,90 L60,90 L65,65" stroke="%23000000" stroke-width="3" fill="%23000000"/></svg>') no-repeat center;
+            background-size: contain;
+        }
+
+        .bg-art-4 {
+            bottom: 20%;
+            right: 10%;
+            width: 140px;
+            height: 140px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23000000"/><path d="M30,30 L50,10 L70,30 L65,50 L35,50 Z" fill="%23FFFFFF" opacity="0.8"/><circle cx="50" cy="50" r="15" fill="%23FFFFFF" opacity="0.6"/><path d="M50,65 L50,85 M35,50 L15,50 M65,50 L85,50" stroke="%23FFFFFF" stroke-width="3"/></svg>') no-repeat center;
+            background-size: contain;
+        }
+
+        /* App Container */
+        .app-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Hidden utility */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Initial Screen */
+        .initial-screen {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+            min-height: 100vh;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Logo with gradient */
+        .logo-container {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .logo-icon {
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(to bottom, var(--light-orange), var(--coral));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 50% 50% 0 0;
+        }
+
+        .logo-icon i {
+            font-size: 4rem;
+            color: var(--white);
+            z-index: 1;
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 4.5rem;
+            color: var(--black);
+            letter-spacing: -1px;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-tagline {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+            max-width: 500px;
+            margin-bottom: 3rem;
+        }
+
+        /* Explore Button */
+        .explore-btn {
+            background: var(--white);
+            color: var(--teal);
+            border: none;
+            padding: 18px 45px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            letter-spacing: 1px;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .explore-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .explore-btn:active {
+            transform: translateY(0);
+        }
+
+        .explore-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, var(--light-orange), var(--coral));
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            border-radius: 50px;
+        }
+
+        .explore-btn:hover::after {
+            opacity: 1;
+        }
+
+        .explore-btn:hover {
+            color: var(--white);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: none;
+            min-height: 100vh;
+            background: var(--white);
+            position: relative;
+            z-index: 2;
+            border-radius: 30px 30px 0 0;
+            overflow: hidden;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .main-content.show {
+            display: block;
+        }
+
+        /* App Header */
+        .app-header {
+            position: sticky;
+            top: 0;
+            background: var(--white);
+            z-index: 100;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 2.2rem;
+            color: var(--black);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .header-logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .header-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--light-orange), var(--coral));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.2rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: var(--light-gray);
+            color: var(--teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn:hover {
+            background: var(--teal);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(47, 183, 198, 0.3);
+        }
+
+        .nav-btn.active {
+            background: var(--teal);
+            color: var(--white);
+        }
+
+        /* Booking Page Home Button */
+        .booking-home-btn {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.3rem;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+        }
+
+        .booking-home-btn:hover {
+            background: var(--white);
+            color: var(--teal);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* App Sections */
+        .app-section {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            display: none;
+        }
+
+        .app-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Interest Selection */
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 2.5rem;
+            color: var(--black);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .interest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .interest-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 0;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            height: 320px;
+        }
+
+        .interest-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(47, 183, 198, 0.15);
+        }
+
+        .interest-card:active {
+            transform: translateY(-5px);
+        }
+
+        .interest-image {
+            height: 180px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .interest-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .interest-card:hover .interest-image img {
+            transform: scale(1.05);
+        }
+
+        .interest-content {
+            padding: 25px;
+        }
+
+        .interest-icon {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: var(--teal);
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .interest-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--black);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .interest-desc {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Subservices */
+        .subservices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .subservice-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 0;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .subservice-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(47, 183, 198, 0.15);
+        }
+
+        .subservice-image {
+            height: 140px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .subservice-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .subservice-card:hover .subservice-image img {
+            transform: scale(1.05);
+        }
+
+        .subservice-content {
+            padding: 20px;
+        }
+
+        .subservice-icon {
+            font-size: 2rem;
+            color: var(--teal);
+            margin-bottom: 15px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .subservice-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--black);
+        }
+
+        /* Back Button */
+        .back-btn {
+            background: var(--teal);
+            color: var(--white);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            margin-bottom: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .back-btn:hover {
+            background: var(--teal-dark);
+            transform: translateX(-5px);
+        }
+
+        /* Booking Page */
+        .booking-page {
+            background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+            color: var(--white);
+            min-height: 100vh;
+            position: relative;
+            display: none;
+        }
+
+        .booking-page.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .booking-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .booking-header {
+            text-align: center;
+            margin-bottom: 40px;
+            margin-top: 30px;
+        }
+
+        .booking-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .booking-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Booking Form */
+        .booking-form {
+            background: var(--white);
+            border-radius: 25px;
+            padding: 40px;
+            color: var(--dark-gray);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--black);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--light-gray);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(47, 183, 198, 0.2);
+            background: var(--white);
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            background: #25D366;
+            color: var(--white);
+            border: none;
+            padding: 18px 30px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            font-size: 1.1rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .whatsapp-btn:hover {
+            background: #1da851;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        /* Footer - Only on Booking Page */
+        .app-footer {
+            background: var(--teal-dark);
+            color: var(--white);
+            padding: 30px 20px;
+            margin-top: 60px;
+            border-radius: 25px 25px 0 0;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            display: block;
+            margin-bottom: 10px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            transform: translateX(5px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background: var(--white);
+            color: var(--teal);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Map Container */
+        .map-container {
+            margin-top: 40px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        #map {
+            height: 300px;
+            width: 100%;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 3.5rem;
+            }
+            
+            .logo-tagline {
+                font-size: 1.1rem;
+                padding: 0 20px;
+            }
+            
+            .header-logo {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .interest-grid, .subservices-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .booking-form {
+                padding: 25px;
+            }
+            
+            .booking-title {
+                font-size: 2.2rem;
+            }
+            
+            #map {
+                height: 250px;
+            }
+            
+            .bg-art {
+                opacity: 0.05;
+                width: 80px;
+                height: 80px;
+            }
+            
+            .interest-card, .subservice-card {
+                height: auto;
+            }
+            
+            .interest-image, .subservice-image {
+                height: 150px;
+            }
+            
+            .booking-home-btn {
+                top: 15px;
+                left: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 3rem;
+            }
+            
+            .logo-icon {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .logo-icon i {
+                font-size: 3.5rem;
+            }
+            
+            .explore-btn {
+                padding: 16px 35px;
+                font-size: 1.1rem;
+            }
+            
+            .nav-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+            
+            .interest-image, .subservice-image {
+                height: 130px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Art Elements -->
+    <div class="bg-art bg-art-1"></div>
+    <div class="bg-art bg-art-2"></div>
+    <div class="bg-art bg-art-3"></div>
+    <div class="bg-art bg-art-4"></div>
+    
+    <!-- App Container -->
+    <div class="app-container">
+        <!-- Initial Screen -->
+        <div class="initial-screen" id="initialScreen">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-spa"></i>
+                </div>
+                <div class="logo-text">DAY Z</div>
+                <div class="logo-tagline">Wellness | Dance | Art | Kids Activities</div>
+            </div>
+            <button class="explore-btn" id="exploreBtn">
+                <i class="fas fa-compass"></i> EXPLORE STUDIO
+            </button>
+        </div>
+        
+        <!-- Main App Content -->
+        <div class="main-content" id="mainContent">
+            <!-- App Header -->
+            <header class="app-header">
+                <div class="header-container">
+                    <a href="#" class="header-logo" id="homeLogo">
+                        <div class="header-logo-icon">
+                            <i class="fas fa-spa"></i>
+                        </div>
+                        DAY Z
+                    </a>
+                    
+                    <div class="nav-buttons">
+                        <button class="nav-btn active" id="homeBtn" title="Home">
+                            <i class="fas fa-home"></i>
+                        </button>
+                        <button class="nav-btn" id="exploreNavBtn" title="Explore">
+                            <i class="fas fa-compass"></i>
+                        </button>
+                        <button class="nav-btn" id="bookingNavBtn" title="Book Trial">
+                            <i class="fas fa-calendar-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- App Sections -->
+            <!-- Interest Selection -->
+            <section class="app-section active" id="interestSection">
+                <div class="section-title">What are your interests?</div>
+                <p class="section-subtitle">Choose an activity you'd like to explore. We'll guide you to the perfect class for your needs.</p>
+                
+                <div class="interest-grid">
+                    <!-- Yoga Card -->
+                    <div class="interest-card" data-interest="yoga">
+                        <div class="interest-image">
+                            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Yoga and Meditation">
+                        </div>
+                        <div class="interest-content">
+                            <div class="interest-icon">
+                                <i class="fas fa-spa"></i>
+                            </div>
+                            <h3 class="interest-title">Yoga & Meditation</h3>
+                            <p class="interest-desc">Find balance and inner peace through guided yoga sessions and mindfulness practices.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Dance Card -->
+                    <div class="interest-card" data-interest="dance">
+                        <div class="interest-image">
+                            <img src="https://images.unsplash.com/photo-1518834103328-93d45986dce1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Dance and Zumba">
+                        </div>
+                        <div class="interest-content">
+                            <div class="interest-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <h3 class="interest-title">Dance & Zumba</h3>
+                            <p class="interest-desc">From contemporary to Bharatanatyam, express yourself and stay fit with fun dance classes.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Art Card -->
+                    <div class="interest-card" data-interest="art">
+                        <div class="interest-image">
+                            <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Art and Crafts">
+                        </div>
+                        <div class="interest-content">
+                            <div class="interest-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h3 class="interest-title">Art & Crafts</h3>
+                            <p class="interest-desc">Unleash your creativity with fine arts, crafts, and music workshops for all skill levels.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Kids Card -->
+                    <div class="interest-card" data-interest="kids">
+                        <div class="interest-image">
+                            <img src="https://images.unsplash.com/photo-1516627145497-ae695c9c5e6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Kids Activities">
+                        </div>
+                        <div class="interest-content">
+                            <div class="interest-icon">
+                                <i class="fas fa-child"></i>
+                            </div>
+                            <h3 class="interest-title">Kids Activities</h3>
+                            <p class="interest-desc">Nurture creativity and growth in children with specially designed art and dance programs.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Yoga Subservices -->
+            <section class="app-section" id="yogaSubservices">
+                <button class="back-btn" data-back="interest">
+                    <i class="fas fa-arrow-left"></i> Back to Interests
+                </button>
+                <div class="section-title">Yoga & Meditation Programs</div>
+                <p class="section-subtitle">Choose a program that resonates with your wellness goals</p>
+                
+                <div class="subservices-grid">
+                    <div class="subservice-card" data-subservice="hatha-yoga">
+                        <div class="subservice-image">
+                            <img src="https://images.unsplash.com/photo-1545389336-cf0900e9a2b0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Hatha Yoga">
+                        </div>
+                        <div class="subservice-content">
+                            <div class="subservice-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <h3 class="subservice-title">Hatha Yoga</h3>
+                            <p>Traditional yoga focusing on posture and breathing techniques</p>
+                        </div>
+                    </div>
+                    
+                    <div class="subservice-card" data-subservice="vinyasa-flow">
+                        <div class="subservice-image">
+                            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Vinyasa Flow">
+                        </div>
+                        <div class="subservice-content">
+                            <div class="subservice-icon">
+                                <i class="fas fa-water"></i>
+                            </div>
+                            <h3 class="subservice-title">Vinyasa Flow</h3>
+                            <p>Dynamic movement synchronized with breath for fluid practice</p>
+                        </div>
+                    </div>
+                    
+                    <div class="subservice-card" data-subservice="meditation">
+                        <div class="subservice-image">
+                            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Meditation">
+                        </div>
+                        <div class="subservice-content">
+                            <div class="subservice-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h3 class="subservice-title">Mindfulness Meditation</h3>
+                            <p>Guided meditation for stress reduction and mental clarity</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Dance Subservices -->
+            <section class="app-section" id="danceSubservices">
+                <button class="back-btn" data-back="interest">
+                    <i class="fas fa-arrow-left"></i> Back to Interests
+                </button>
+                <div class="section-title">Dance & Zumba Programs</div>
+                <p class="section-subtitle">Find your rhythm with our diverse dance styles</p>
+                
+                <div class="subservices-grid">
+                    <div class="subservice-card" data-subservice="contemporary">
+                        <div class="subservice-image">
+                            <img src="https://images.unsplash.com/photo-1547153760-18fc86324498?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Contemporary Dance">
+                        </div>
+                        <div class="subservice-content">
+                            <div class="subservice-icon">
+                                <i class="fas fa-user-friends"></i>
+                            </div>
+                            <h3 class="subservice-title">Contemporary Dance</h3>
+                            <p>Expressive dance combining elements of several dance genres</p>
+                        </div>
+                    </div>
+                    
+                    <div class="subservice-card" data-subservice="bharatanatyam">
+                        <div class="subservice-image">
+                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Bharatanatyam">
+                        </div>
+                        <div class="subservice-content">
+                            <div class="subservice-icon">
+                                <i class="fas fa-hands"></i>
+                            </div>
+                            <h3 class="subservice-title">Bharatanatyam</h3>
+                            <p>Classical Indian dance with intricate footwork and gestures</p>
+                        </div>
+                    </div>
+                    
+                    <div class="subservice-card" data-subservice="zumba">
+                        <div class="subservice-image">
+                            <img src="https://images.unsplash.com/photo-1534367507877-0edd93bd013b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Zumba Fitness">
+                        </div>
+                        <div class="subservice-content">
+                            <div class="subservice-icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <h3 class="subservice-title">Zumba Fitness</h3>
+                            <p>High-energy dance workout with Latin and international music</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Art Subservices -->
+            <section class="app-section" id="artSubservices">
+                <button class="back-btn" data-back="interest">
+                    <i class="fas fa-arrow-left"></i> Back to Interests
+                </button>
+                <div class="section-title">Art & Crafts Programs</div>
+                <p class="section-subtitle">Unleash your creativity with our hands-on workshops</p>
+                
+                <div class="subservices-grid">
+                    <div class="subservice-card" data-subservice="fine-arts">
+                        <div class="subservice-image">
+                            <img src="https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Fine Arts">
+                        </div>
+                        <div class="subservice-content">
+                            <div class="subservice-icon">
+                                <i class="fas fa-paint-brush"></i>
+                            </div>
+                            <h3 class="subservice-title">Fine Arts</h3>
+                            <p>Drawing, painting and sketching techniques for all skill levels</p>
+                        </div>
+                    </div>
+                    
+                    <div class="subservice-card" data-subservice="pottery">
+                        <div class="subservice-image">
+                            <img src="https://images.unsplash.com/photo-1577375729152-4c8b5fcda381?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Pottery">
+                        </div>
+                        <div class="subservice-content">
+                            <div class="subservice-icon">
+                                <i class="fas fa-mortar-pestle"></i>
+                            </div>
+                            <h3 class="subservice-title">Pottery & Ceramics</h3>
+                            <p>Hand-building and wheel throwing techniques with clay</p>
+                        </div>
+                    </div>
+                    
+                    <div class="subservice-card" data-subservice="music">
+                        <div class="subservice-image">
+                            <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Music Workshops">
+                        </div>
+                        <div class="subservice-content">
+                            <div class="subservice-icon">
+                                <i class="fas fa-guitar"></i>
+                            </div>
+                            <h3 class="subservice-title">Music Workshops</h3>
+                            <p>Learn instruments, vocals and music theory in group sessions</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Kids Subservices -->
+            <section class="app-section" id="kidsSubservices">
+                <button class="back-btn" data-back="interest">
+                    <i class="fas fa-arrow-left"></i> Back to Interests
+                </button>
+                <div class="section-title">Kids Programs</div>
+                <p class="section-subtitle">Nurture creativity and growth in children</p>
+                
+                <div class="subservices-grid">
+                    <div class="subservice-card" data-subservice="creative-arts">
+                        <div class="subservice-image">
+                            <img src="https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Creative Arts for Kids">
+                        </div>
+                        <div class="subservice-content">
+                            <div class="subservice-icon">
+                                <i class="fas fa-pencil-alt"></i>
+                            </div>
+                            <h3 class="subservice-title">Creative Arts</h3>
+                            <p>Drawing, painting, and crafts for children aged 4-12</p>
+                        </div>
+                    </div>
+                    
+                    <div class="subservice-card" data-subservice="kids-yoga">
+                        <div class="subservice-image">
+                            <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Kids Yoga">
+                        </div>
+                        <div class="subservice-content">
+                            <div class="subservice-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h3 class="subservice-title">Kids Yoga & Mindfulness</h3>
+                            <p>Gentle yoga and breathing exercises for focus and emotional regulation</p>
+                        </div>
+                    </div>
+                    
+                    <div class="subservice-card" data-subservice="kids-dance">
+                        <div class="subservice-image">
+                            <img src="https://images.unsplash.com/photo-1516627145497-ae695c9c5e6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Dance for Kids">
+                        </div>
+                        <div class="subservice-content">
+                            <div class="subservice-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h3 class="subservice-title">Dance for Kids</h3>
+                            <p>Fun dance classes promoting coordination, rhythm and confidence</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Booking Page (Separate from main content) -->
+        <div class="booking-page" id="bookingPage">
+            <!-- Home Button on Booking Page -->
+            <button class="booking-home-btn" id="bookingHomeBtn" title="Go Home">
+                <i class="fas fa-home"></i>
+            </button>
+            
+            <div class="booking-container">
+                <div class="booking-header">
+                    <h1 class="booking-title">Book Your Free Trial</h1>
+                    <p class="booking-subtitle">Experience DAY Z Studios with a complimentary trial class. Let us know your preferences and we'll match you with the perfect session.</p>
+                </div>
+                
+                <div class="booking-form">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" class="form-control" placeholder="Enter your full name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="tel" id="phoneNumber" class="form-control" placeholder="Enter your phone number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="emailAddress">Email Address</label>
+                        <input type="email" id="emailAddress" class="form-control" placeholder="Enter your email address">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interestSelect">I'm Interested In</label>
+                        <select id="interestSelect" class="form-control">
+                            <option value="">Select a class</option>
+                            <option value="yoga">Yoga & Meditation</option>
+                            <option value="dance">Dance & Zumba</option>
+                            <option value="art">Art & Crafts</option>
+                            <option value="kids">Kids Activities</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Additional Message (Optional)</label>
+                        <textarea id="message" class="form-control" rows="4" placeholder="Any specific requirements, preferences, or questions?"></textarea>
+                    </div>
+                    
+                    <button class="whatsapp-btn" id="whatsappBtn">
+                        <i class="fab fa-whatsapp"></i> Book Trial via WhatsApp
+                    </button>
+                </div>
+                
+                <!-- Map Section -->
+                <div class="map-container">
+                    <div id="map"></div>
+                </div>
+                
+                <!-- Footer (Only on booking page) -->
+                <footer class="app-footer">
+                    <div class="footer-container">
+                        <div>
+                            <h3 class="footer-title">DAY Z Studios</h3>
+                            <p>Wellness & Creative Studio offering yoga, dance, art, and kids programs in a welcoming, holistic environment.</p>
+                            <div class="social-icons">
+                                <a href="#" class="social-icon">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="social-icon">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="social-icon">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="social-icon">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="footer-title">Get In Touch</h3>
+                            <div class="footer-links">
+                                <a href="#"><i class="fas fa-map-marker-alt"></i> 123 Wellness Street, Creative District, Mumbai, India 400001</a>
+                                <a href="tel:+918861616622"><i class="fas fa-phone"></i> +91 88616 16622</a>
+                                <a href="mailto:hello@dayzstudio.com"><i class="fas fa-envelope"></i> hello@dayzstudio.com</a>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="footer-title">Opening Hours</h3>
+                            <div class="footer-links">
+                                <a href="#">Monday - Friday: 6:00 AM - 9:00 PM</a>
+                                <a href="#">Saturday - Sunday: 8:00 AM - 8:00 PM</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="copyright">
+                        <p>&copy; 2023 DAY Z Studios. All rights reserved.</p>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const initialScreen = document.getElementById('initialScreen');
+        const exploreBtn = document.getElementById('exploreBtn');
+        const mainContent = document.getElementById('mainContent');
+        const bookingPage = document.getElementById('bookingPage');
+        
+        // Navigation
+        const homeLogo = document.getElementById('homeLogo');
+        const homeBtn = document.getElementById('homeBtn');
+        const exploreNavBtn = document.getElementById('exploreNavBtn');
+        const bookingNavBtn = document.getElementById('bookingNavBtn');
+        const bookingHomeBtn = document.getElementById('bookingHomeBtn');
+        const navBtns = document.querySelectorAll('.nav-btn');
+        
+        // Sections
+        const interestSection = document.getElementById('interestSection');
+        const yogaSubservices = document.getElementById('yogaSubservices');
+        const danceSubservices = document.getElementById('danceSubservices');
+        const artSubservices = document.getElementById('artSubservices');
+        const kidsSubservices = document.getElementById('kidsSubservices');
+        const appSections = document.querySelectorAll('.app-section');
+        
+        // Interactive elements
+        const interestCards = document.querySelectorAll('.interest-card');
+        const backBtns = document.querySelectorAll('.back-btn');
+        const subserviceCards = document.querySelectorAll('.subservice-card');
+        const whatsappBtn = document.getElementById('whatsappBtn');
+        
+        // Current active section tracking
+        let currentSection = 'interest';
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set active navigation button
+            setActiveNav('home');
+            
+            // Initialize Google Map
+            initMap();
+            
+            // Add click effects to buttons
+            addClickEffects();
+        });
+        
+        // Explore button click - transition from initial screen
+        exploreBtn.addEventListener('click', function() {
+            // Hide initial screen
+            initialScreen.style.display = 'none';
+            
+            // Show main content
+            mainContent.classList.add('show');
+            
+            // Show interest section
+            showSection('interest');
+            
+            // Add animation to the button
+            animateButton(this);
+        });
+        
+        // Home logo click - go to home (interest section)
+        homeLogo.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // If booking page is active, hide it
+            if (bookingPage.classList.contains('active')) {
+                bookingPage.classList.remove('active');
+                mainContent.classList.add('show');
+            }
+            
+            // Show interest section
+            showSection('interest');
+            setActiveNav('home');
+            
+            animateButton(this);
+        });
+        
+        // Home button click
+        homeBtn.addEventListener('click', function() {
+            // If booking page is active, hide it
+            if (bookingPage.classList.contains('active')) {
+                bookingPage.classList.remove('active');
+                mainContent.classList.add('show');
+            }
+            
+            // Show interest section
+            showSection('interest');
+            setActiveNav('home');
+            
+            animateButton(this);
+        });
+        
+        // Explore navigation button
+        exploreNavBtn.addEventListener('click', function() {
+            // If booking page is active, hide it
+            if (bookingPage.classList.contains('active')) {
+                bookingPage.classList.remove('active');
+                mainContent.classList.add('show');
+            }
+            
+            // Show interest section
+            showSection('interest');
+            setActiveNav('explore');
+            
+            animateButton(this);
+        });
+        
+        // Booking navigation button
+        bookingNavBtn.addEventListener('click', function() {
+            // Hide main content and show booking page
+            mainContent.classList.remove('show');
+            bookingPage.classList.add('active');
+            setActiveNav('booking');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            animateButton(this);
+        });
+        
+        // Booking page home button
+        bookingHomeBtn.addEventListener('click', function() {
+            // Hide booking page and show main content
+            bookingPage.classList.remove('active');
+            mainContent.classList.add('show');
+            
+            // Show interest section
+            showSection('interest');
+            setActiveNav('home');
+            
+            animateButton(this);
+        });
+        
+        // Interest cards click
+        interestCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const interest = this.getAttribute('data-interest');
+                
+                // Show the corresponding subservices section
+                switch(interest) {
+                    case 'yoga':
+                        showSection('yoga');
+                        break;
+                    case 'dance':
+                        showSection('dance');
+                        break;
+                    case 'art':
+                        showSection('art');
+                        break;
+                    case 'kids':
+                        showSection('kids');
+                        break;
+                }
+                
+                // Update current section
+                currentSection = interest;
+                
+                animateButton(this);
+            });
+        });
+        
+        // Back buttons in subservices sections
+        backBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                showSection('interest');
+                currentSection = 'interest';
+                setActiveNav('home');
+                
+                animateButton(this);
+            });
+        });
+        
+        // Subservice cards click - leads to booking page with selected interest
+        subserviceCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const subservice = this.getAttribute('data-subservice');
+                const select = document.getElementById('interestSelect');
+                
+                // Map subservice to appropriate option
+                if (subservice.includes('yoga') || subservice.includes('meditation')) {
+                    select.value = 'yoga';
+                } else if (subservice.includes('dance') || subservice.includes('zumba') || subservice.includes('bharatanatyam')) {
+                    select.value = 'dance';
+                } else if (subservice.includes('art') || subservice.includes('pottery') || subservice.includes('music')) {
+                    select.value = 'art';
+                } else if (subservice.includes('kids')) {
+                    select.value = 'kids';
+                }
+                
+                // Navigate to booking page
+                mainContent.classList.remove('show');
+                bookingPage.classList.add('active');
+                setActiveNav('booking');
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                animateButton(this);
+            });
+        });
+        
+        // WhatsApp booking button
+        whatsappBtn.addEventListener('click', function() {
+            const name = document.getElementById('fullName').value || 'Not provided';
+            const phone = document.getElementById('phoneNumber').value || 'Not provided';
+            const email = document.getElementById('emailAddress').value || 'Not provided';
+            const interest = document.getElementById('interestSelect').value || 'Not specified';
+            const message = document.getElementById('message').value || 'No additional message';
+            
+            // Create WhatsApp message
+            const whatsappMessage = `Hello DAY Z Studios!%0A%0AI would like to book a free trial class.%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Email:* ${email}%0A*Interest:* ${interest}%0A*Message:* ${message}`;
+            
+            // Open WhatsApp with pre-filled message
+            window.open(`https://wa.me/918861616622?text=${whatsappMessage}`, '_blank');
+            
+            animateButton(this);
+        });
+        
+        // Helper Functions
+        function showSection(sectionName) {
+            // Hide all sections
+            appSections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show the requested section
+            switch(sectionName) {
+                case 'interest':
+                    interestSection.classList.add('active');
+                    break;
+                case 'yoga':
+                    yogaSubservices.classList.add('active');
+                    break;
+                case 'dance':
+                    danceSubservices.classList.add('active');
+                    break;
+                case 'art':
+                    artSubservices.classList.add('active');
+                    break;
+                case 'kids':
+                    kidsSubservices.classList.add('active');
+                    break;
+            }
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function setActiveNav(button) {
+            // Remove active class from all nav buttons
+            navBtns.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to the clicked button
+            switch(button) {
+                case 'home':
+                    homeBtn.classList.add('active');
+                    break;
+                case 'explore':
+                    exploreNavBtn.classList.add('active');
+                    break;
+                case 'booking':
+                    bookingNavBtn.classList.add('active');
+                    break;
+            }
+        }
+        
+        function initMap() {
+            // Mumbai coordinates
+            const mumbai = { lat: 19.0760, lng: 72.8777 };
+            
+            // Check if Google Maps is loaded
+            if (typeof google === 'undefined') {
+                console.log('Google Maps not loaded');
+                return;
+            }
+            
+            // Create a map centered at Mumbai
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: mumbai,
+                styles: [
+                    {
+                        "featureType": "all",
+                        "elementType": "labels.text.fill",
+                        "stylers": [
+                            {"color": "#2FB7C6"}
+                        ]
+                    },
+                    {
+                        "featureType": "poi",
+                        "elementType": "all",
+                        "stylers": [
+                            {"visibility": "off"}
+                        ]
+                    },
+                    {
+                        "featureType": "road",
+                        "elementType": "all",
+                        "stylers": [
+                            {"saturation": -100},
+                            {"lightness": 45}
+                        ]
+                    }
+                ]
+            });
+            
+            // Add a marker for DAYZ Studio
+            const marker = new google.maps.Marker({
+                position: mumbai,
+                map: map,
+                title: "DAYZ Studio",
+                icon: {
+                    url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                }
+            });
+            
+            // Info window for the marker
+            const infoWindow = new google.maps.InfoWindow({
+                content: `
+                    <div style="padding: 10px;">
+                        <h3 style="margin: 0 0 10px; color: #2FB7C6; font-weight: 600;">DAYZ Studio</h3>
+                        <p style="margin: 0;">123 Wellness Street, Creative District<br>Mumbai, India 400001</p>
+                    </div>
+                `
+            });
+            
+            marker.addListener("click", () => {
+                infoWindow.open(map, marker);
+            });
+        }
+        
+        function addClickEffects() {
+            // Add click effects to all interactive elements
+            const interactiveElements = document.querySelectorAll('button, .interest-card, .subservice-card, .social-icon, .header-logo');
+            
+            interactiveElements.forEach(el => {
+                el.addEventListener('mousedown', function() {
+                    this.style.transform = 'scale(0.95)';
+                });
+                
+                el.addEventListener('mouseup', function() {
+                    this.style.transform = '';
+                });
+                
+                el.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                });
+            });
+        }
+        
+        function animateButton(button) {
+            button.style.animation = 'none';
+            setTimeout(() => {
+                button.style.animation = 'pulse 0.5s ease';
+            }, 10);
+            
+            setTimeout(() => {
+                button.style.animation = '';
+            }, 500);
+        }
+    </script>
+    <!-- Google Maps API (replace with your own API key in production) -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5gvS5YgHxQkZ3qjZ8W7G5q5q5q5q5q5q&callback=initMap" async defer></script>
+</body>
+</html>
